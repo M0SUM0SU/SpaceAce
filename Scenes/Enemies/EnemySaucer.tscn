@@ -1,0 +1,241 @@
+[gd_scene load_steps=21 format=3 uid="uid://bg472huctv8ko"]
+
+[ext_resource type="PackedScene" uid="uid://pe1cfj72ugji" path="res://Scenes/Enemies/EnemyBase.tscn" id="1_ljnyv"]
+[ext_resource type="Texture2D" uid="uid://dhl1td3t4abyg" path="res://assets/ships/saucer_1.png" id="2_0b78i"]
+[ext_resource type="Script" uid="uid://s55o406wmxr2" path="res://Scenes/Enemies/EnemySaucer.gd" id="2_km1bp"]
+[ext_resource type="AudioStream" uid="uid://bsovjv7kve0cv" path="res://assets/sounds/misc/sci-fi-door.wav" id="2_lpcqa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0b78i"]
+radius = 37.01351
+
+[sub_resource type="Animation" id="Animation_dukit"]
+resource_name = "Die"
+length = 1.4
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 1.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lpcqa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_km1bp"]
+resource_name = "Shooting"
+length = 2.6
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8000001, 2, 2.2, 2.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 5, 5, 4, 3, 2, 1, 0]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sound")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.5008612,
+"start_offset": 0.0,
+"stream": ExtResource("2_lpcqa")
+}, {
+"end_offset": 0.6294607,
+"start_offset": 0.0,
+"stream": ExtResource("2_lpcqa")
+}],
+"times": PackedFloat32Array(0, 1.4)
+}
+tracks/1/use_blend = true
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.4, 2.4),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"fire_missle"
+}, {
+"args": [false],
+"method": &"set_shooting"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0b78i"]
+resource_name = "Spin"
+length = 5.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.283185307179586]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_km1bp"]
+_data = {
+&"Die": SubResource("Animation_dukit"),
+&"RESET": SubResource("Animation_lpcqa"),
+&"Shooting": SubResource("Animation_km1bp"),
+&"Spin": SubResource("Animation_0b78i")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_co5as"]
+animation = &"Die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_km1bp"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dukit"]
+animation = &"Shooting"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_07xfq"]
+animation = &"Spin"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yarpm"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2pkoa"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rm7mb"]
+advance_mode = 2
+advance_expression = "_dead == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_khssq"]
+advance_mode = 2
+advance_expression = "_dead == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_km1bp"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lpcqa"]
+states/Die/node = SubResource("AnimationNodeAnimation_co5as")
+states/Die/position = Vector2(498, 214)
+states/RESET/node = SubResource("AnimationNodeAnimation_km1bp")
+states/RESET/position = Vector2(322, 100)
+states/Shooting/node = SubResource("AnimationNodeAnimation_dukit")
+states/Shooting/position = Vector2(583, 100)
+states/Spin/node = SubResource("AnimationNodeAnimation_07xfq")
+states/Spin/position = Vector2(432, 100)
+transitions = ["Shooting", "Spin", SubResource("AnimationNodeStateMachineTransition_yarpm"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_2pkoa"), "Spin", "Die", SubResource("AnimationNodeStateMachineTransition_rm7mb"), "Shooting", "Die", SubResource("AnimationNodeStateMachineTransition_khssq"), "RESET", "Spin", SubResource("AnimationNodeStateMachineTransition_km1bp")]
+
+[node name="EnemySaucer" instance=ExtResource("1_ljnyv")]
+script = ExtResource("2_km1bp")
+
+[node name="Sound" parent="." index="1"]
+stream = null
+
+[node name="Marker2D" type="Marker2D" parent="Booms" index="0"]
+position = Vector2(-13, 9)
+
+[node name="Marker2D2" type="Marker2D" parent="Booms" index="1"]
+
+[node name="Marker2D3" type="Marker2D" parent="Booms" index="2"]
+position = Vector2(12, 17)
+
+[node name="Marker2D4" type="Marker2D" parent="Booms" index="3"]
+position = Vector2(24, -14)
+
+[node name="Marker2D5" type="Marker2D" parent="Booms" index="4"]
+position = Vector2(-16, -26)
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_0b78i")
+
+[node name="HealthBar" parent="." index="4"]
+visible = false
+offset_left = -30.0
+offset_top = -50.0
+offset_right = 30.0
+offset_bottom = -44.0
+level_low = 50
+level_med = 125
+start_health = 250
+max_health = 250
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+&"": SubResource("AnimationLibrary_km1bp")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="6"]
+texture = ExtResource("2_0b78i")
+offset = Vector2(0, 3)
+hframes = 7
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="7"]
+deterministic = false
+tree_root = SubResource("AnimationNodeStateMachine_lpcqa")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="ShootTimer" type="Timer" parent="." index="8"]
+wait_time = 6.0
+autostart = true
+
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

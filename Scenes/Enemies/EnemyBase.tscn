@@ -1,0 +1,43 @@
+[gd_scene load_steps=10 format=3 uid="uid://pe1cfj72ugji"]
+
+[ext_resource type="PackedScene" uid="uid://qq0gjyel2fm6" path="res://Scenes/OutOfTime/OutOfTime.tscn" id="1_p6c21"]
+[ext_resource type="Script" uid="uid://rtbh3t3l301l" path="res://Scenes/Enemies/EnemyBase.gd" id="1_srcxp"]
+[ext_resource type="PackedScene" uid="uid://we8j40cp7yi" path="res://Scenes/UI Stuff/HealthBar.tscn" id="2_srcxp"]
+[ext_resource type="AudioStream" uid="uid://da52b8m3s7khp" path="res://assets/sounds/lasers/sfx_wpn_laser1.wav" id="3_fj512"]
+[ext_resource type="AudioStream" uid="uid://dffevs145pngu" path="res://assets/sounds/lasers/sfx_wpn_laser2.wav" id="4_uhgc7"]
+[ext_resource type="AudioStream" uid="uid://d0t32p468w0kn" path="res://assets/sounds/lasers/sfx_wpn_laser3.wav" id="5_4ni7a"]
+[ext_resource type="AudioStream" uid="uid://bt8muih1jgeya" path="res://assets/sounds/lasers/sfx_wpn_laser4.wav" id="6_lv37s"]
+[ext_resource type="AudioStream" uid="uid://1qjcy27abaxl" path="res://assets/sounds/lasers/sfx_wpn_laser5.wav" id="7_obdxo"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_imyi4"]
+streams_count = 5
+stream_0/stream = ExtResource("3_fj512")
+stream_1/stream = ExtResource("4_uhgc7")
+stream_2/stream = ExtResource("5_4ni7a")
+stream_3/stream = ExtResource("6_lv37s")
+stream_4/stream = ExtResource("7_obdxo")
+
+[node name="EnemyBase" type="PathFollow2D"]
+rotates = false
+loop = false
+script = ExtResource("1_srcxp")
+
+[node name="OutOfTime" parent="." instance=ExtResource("1_p6c21")]
+life_s = 30.0
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_imyi4")
+volume_db = -30.0
+
+[node name="Booms" type="Node2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+
+[node name="HealthBar" parent="." instance=ExtResource("2_srcxp")]
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="died" from="HealthBar" to="." method="_on_health_bar_died"]

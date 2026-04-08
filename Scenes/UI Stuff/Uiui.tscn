@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://xfm7jvybsxes"]
+
+[ext_resource type="Script" uid="uid://cma4jye3yyg5t" path="res://Scenes/UI Stuff/Uiui.gd" id="1_6qsvy"]
+[ext_resource type="PackedScene" uid="uid://we8j40cp7yi" path="res://Scenes/UI Stuff/HealthBar.tscn" id="1_w4fsy"]
+[ext_resource type="FontFile" uid="uid://b33msg5mojbvg" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="2_6qsvy"]
+[ext_resource type="AudioStream" uid="uid://boct87hp6wlp1" path="res://assets/sounds/powerup/health_16.wav" id="4_urfqx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_urfqx"]
+font = ExtResource("2_6qsvy")
+font_size = 36
+font_color = Color(1, 0.6156863, 0.35686275, 1)
+outline_size = 15
+outline_color = Color(0.38805565, 0.13648143, 4.5724212e-07, 1)
+
+[node name="UIUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6qsvy")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+color = Color(0.18039216, 0, 0.30588236, 0.2901961)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="HealthBar" parent="ColorRect/MarginContainer" instance=ExtResource("1_w4fsy")]
+custom_minimum_size = Vector2(175, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="score label" type="Label" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "00000"
+label_settings = SubResource("LabelSettings_urfqx")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_urfqx")
+volume_db = -20.0
+
+[connection signal="died" from="ColorRect/MarginContainer/HealthBar" to="." method="_on_health_bar_died"]

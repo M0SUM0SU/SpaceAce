@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://cexlg2gut3vwn"]
+
+[ext_resource type="PackedScene" uid="uid://beqty1snrfum5" path="res://Scenes/Misc/Bullets/BulletBase.tscn" id="1_fejmc"]
+[ext_resource type="Texture2D" uid="uid://cdbm8frqf8tqn" path="res://assets/lasers/circle_bomb_red-Sheet.png" id="3_ufavb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_khy6v"]
+atlas = ExtResource("3_ufavb")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bphf1"]
+atlas = ExtResource("3_ufavb")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqae4"]
+atlas = ExtResource("3_ufavb")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwgmq"]
+atlas = ExtResource("3_ufavb")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wvgpo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_khy6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bphf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqae4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwgmq")
+}],
+"loop": true,
+"name": &"bomb",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yo5cr"]
+radius = 8.0
+
+[node name="BulletBomb" instance=ExtResource("1_fejmc")]
+collision_layer = 4
+collision_mask = 33
+damage = 25
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_wvgpo")
+animation = &"bomb"
+autoplay = "bomb"
+frame_progress = 0.00022818398
+
+[node name="Sprite2D" parent="." index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_yo5cr")

@@ -1,0 +1,147 @@
+[gd_scene load_steps=19 format=3 uid="uid://d2ecmw3jiuyvw"]
+
+[ext_resource type="PackedScene" uid="uid://dptmsqw2soak5" path="res://Scenes/Enemies/EnemyShip.tscn" id="1_1wynm"]
+[ext_resource type="Texture2D" uid="uid://eq7fjur406y" path="res://assets/ships/zipper_1.png" id="2_050iy"]
+[ext_resource type="Texture2D" uid="uid://boqfds8f87l23" path="res://assets/ships/zipper_2.png" id="3_sgcng"]
+[ext_resource type="Texture2D" uid="uid://bf36255ubc5ns" path="res://assets/ships/zipper_3.png" id="4_8lnnx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wynm"]
+radius = 16.0
+height = 48.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ilpu2"]
+atlas = ExtResource("2_050iy")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poi82"]
+atlas = ExtResource("2_050iy")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2gecd"]
+atlas = ExtResource("2_050iy")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_loiia"]
+atlas = ExtResource("2_050iy")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vgog"]
+atlas = ExtResource("3_sgcng")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8acv"]
+atlas = ExtResource("3_sgcng")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lp4ex"]
+atlas = ExtResource("3_sgcng")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp31l"]
+atlas = ExtResource("3_sgcng")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m52un"]
+atlas = ExtResource("4_8lnnx")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7cjx"]
+atlas = ExtResource("4_8lnnx")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0e2yo"]
+atlas = ExtResource("4_8lnnx")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrh82"]
+atlas = ExtResource("4_8lnnx")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_35m6a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ilpu2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_poi82")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2gecd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_loiia")
+}],
+"loop": true,
+"name": &"Zipper1",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vgog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8acv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lp4ex")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp31l")
+}],
+"loop": true,
+"name": &"Zipper2",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m52un")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7cjx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0e2yo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrh82")
+}],
+"loop": true,
+"name": &"Zipper3",
+"speed": 10.0
+}]
+
+[node name="EnemyZipper" instance=ExtResource("1_1wynm")]
+power_up_chance = 0.25
+points = 5
+
+[node name="Sound" parent="." index="1"]
+stream = null
+volume_db = 0.0
+
+[node name="Marker2D" type="Marker2D" parent="Booms" index="0"]
+position = Vector2(13, -10)
+
+[node name="Marker2D2" type="Marker2D" parent="Booms" index="1"]
+position = Vector2(10, 10)
+
+[node name="Marker2D3" type="Marker2D" parent="Booms" index="2"]
+position = Vector2(-7, -3)
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_1wynm")
+
+[node name="HealthBar" parent="." index="4"]
+offset_left = -12.0
+offset_top = -18.0
+offset_right = 12.0
+offset_bottom = -16.0
+level_low = 5
+level_med = 25
+start_health = 50
+max_health = 50
+
+[node name="AnimatedSprite2D" parent="." index="5"]
+sprite_frames = SubResource("SpriteFrames_35m6a")
+animation = &"Zipper1"

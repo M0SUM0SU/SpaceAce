@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://1vg1quokypj4"]
+
+[ext_resource type="Script" uid="uid://byb3a2hjhed5p" path="res://Scenes/WaveManager/SaucerManager.gd" id="1_njkss"]
+
+[sub_resource type="Curve2D" id="Curve2D_ebnjc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -71, -46, 0, 0, 0, 0, 127, 87, 0, 0, 0, 0, 410, 110, 0, 0, 0, 0, 532, 89, 0, 0, 0, 0, 719, -26)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_njkss"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -38, -20, 0, 0, 0, 0, 250, 227, 0, 0, 0, 0, 447, 226, 0, 0, 0, 0, 705, -40)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_atciv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -78, 484, 0, 0, 0, 0, 22, 162, 0, 0, 0, 0, 299, 77, 0, 0, 0, 0, 578, 160, 0, 0, 0, 0, 758, 436)
+}
+point_count = 5
+
+[sub_resource type="Curve2D" id="Curve2D_a6lc7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 36, -44, 0, 0, 0, 0, 310, 205, 0, 0, 0, 0, 699, -67)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_ditoi"]
+
+[node name="SaucerManager" type="Node2D"]
+script = ExtResource("1_njkss")
+
+[node name="Paths" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_ebnjc")
+
+[node name="Path2D2" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_njkss")
+
+[node name="Path2D3" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_atciv")
+
+[node name="Path2D5" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_a6lc7")
+
+[node name="Path2D6" type="Path2D" parent="Paths"]
+curve = SubResource("Curve2D_ditoi")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
